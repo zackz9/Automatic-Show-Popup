@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatic Show Popup After Page Load</title>
+    <style>
+        * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        }
+        body {
+        background-color: black;
+        width: 100vw;
+        min-height: 100vh;
+        }
+        .popup {
+        position: fixed;
+         top: 50%;
+        left: 50%;
+         transform: translate(-50%, -50%); 
+        display: none;
+        transition: .4s ease;
+        }
+        .popup.show {
+            animation: fade_in_show 0.5s;
+            display: block;
+        }
+        .contentBox{
+            position: relative;
+            width: 600px;
+            height: 400px;
+            background-color: #fff;
+            /* border-radius: 10px; */
+            display: flex;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .6);
+
+        }
+        .imgBx {
+            width: 300px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .imgBx img::before {
+            content: '';
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background-color: #e7ffe0;
+            /* border-radius: 50%; */
+
+        }
+        .imgBx img {
+            width: 100%;
+            position: relative;
+            min-width: 250px;
+            z-index: 1;
+        }
+        .contentBox .content {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .contentBox .content h3 {
+            color: #333;
+            line-height: 1em;
+            font-size: 2em;
+        }
+        .contentBox .content h2 {
+            color: #333;
+            line-height: 1em;
+            font-size: 4em;
+        }
+        .contentBox .content h2 span {
+            color: #333;
+            font-size: 0.75em;
+            text-transform: uppercase;
+        }
+        .contentBox .content p {
+            font-weight: 300;
+        }
+        .contentBox .content a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: rgb(14, 11, 11);
+            color: #fff;
+            margin-top: 15px;
+            text-decoration: none;
+            font-size: 1.5em;
+            
+        }
+        .contentBox .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            color: #fff;
+            background-color: rgb(14, 11, 11);
+            cursor: pointer;
+        }
+        .contentBox .close span {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            cursor: pointer;
+            z-index: 10;
+            transform: translate(-50%, -50%)rotate(45deg) scale(1.4);
+            transition: all .6s ease;
+        }
+        .contentBox .close:hover ::after {
+            cursor: pointer;
+            transform: rotate(90deg);
+        }
+        @keyframes fade_in_show {
+            0% {
+                opacity: 0;
+                transform: scale(1.1)
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+        }
+        @media (max-width:767px) {
+            .contentBox {
+                width: 300px;
+                height: auto;
+                flex-direction:column ;
+            }
+            .contentBox .imgBx {
+                height: 200px;
+                transform: translateY(-50px);
+            }
+            .contentBox .content {
+                height: auto;
+                text-align: center;
+                padding: 20px;
+                padding-top: 0;
+            }
+            .imgBx img::before {
+                background-color: #fff;
+            }
+            .contentBox .close {
+                top: 10px;
+                right: 10px;
+                width: 20px;
+                height: 20px;
+            }
+            .contentBox .close span {
+                transform: translate(-50%, -50%)rotate(45deg) scale(1.2);
+            }
+            
+
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="popup">
+       
+        <div class="contentBox">
+            <div class="close"><span>+</span></div>
+            <div class="imgBx">
+                <img src="./pht.svg" alt="">
+            </div> 
+            <div class="content">
+                <div class="wrapper">
+                    <h3>Pop up automatique</h3>
+                    <h2>100<sup>%</sup><span>JS</span></h2>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis necessitatibus inventore.
+                    </p>
+                    <a href="#">check this</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script >
+
+        const popup = document.querySelector('.popup');
+        const close = document.querySelector('.close span');
+
+        window.onload = () => {
+            
+            setTimeout(()=> {
+                
+                popup.classList.add('show');
+
+
+            }, 2000)
+        };
+
+        close.addEventListener('click', () => {
+            popup.style.display = 'none';
+        })
+
+    </script>
+</body>
+</html>
